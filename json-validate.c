@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <time.h>
 #include <jzon.h>
 
 int main(int argc, const char **argv)
@@ -36,7 +37,10 @@ int main(int argc, const char **argv)
 
     data[buf.st_size] = '\0';
 
+    clock_t start = clock();
     struct jzon *jzon = jzon_parse(data);
+    clock_t stop = clock();
+    fprintf(stderr, "jzon_parse took %f seconds.\n", (double)(stop - start) / CLOCKS_PER_SEC);
     if (!jzon) {
         fprintf(stderr, "Not valid JSON!\n");
         free(data);
