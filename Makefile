@@ -11,5 +11,5 @@ release: CFLAGS = -std=gnu11 -Os -march=native -flto -Wall -Wextra -Wpedantic -W
 release: $(BIN)
 
 clean:
-	rm -r $(BIN)
+	rm -f $(BIN)
 	rm -rf *.dSYM
