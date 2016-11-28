@@ -37,11 +37,13 @@ int main(int argc, const char **argv)
 
     data[buf.st_size] = '\0';
 
+    enum jzon_error_type jzon_error;
+
     clock_t start = clock();
-    struct jzon *jzon = jzon_parse(data);
+    struct jzon *jzon = jzon_parse(data, &jzon_error);
     clock_t stop = clock();
     fprintf(stderr, "jzon_parse took %f seconds.\n", (double)(stop - start) / CLOCKS_PER_SEC);
-    if (!jzon) {
+    if (jzon_error != JZONE_NONE) {
         fprintf(stderr, "Not valid JSON!\n");
         free(data);
         return EXIT_FAILURE;
